@@ -2,8 +2,8 @@ import torch
 from torch import nn, optim
 import mlflow
 from utils.logger import get_logger
-from evaluate import evaluate_model
-from visualize import plot_training_metrics
+from src.evaluate import evaluate_model
+from src.visualize import save_training_plot
 
 logger = get_logger("training", "logs/training.log")
 
@@ -69,8 +69,8 @@ def train_model(model, train_loader, test_loader, config):
                 accuracy = correct / total
 
                 # Append to history
-                history["train_loss"].append(avg_loss)
-                history["train_accuracy"].append(accuracy)
+                history["loss"].append(avg_loss)
+                history["accuracy"].append(accuracy)
 
                 # Evaluate on test data
                 test_accuracy = evaluate_model(model, test_loader)
@@ -85,7 +85,9 @@ def train_model(model, train_loader, test_loader, config):
                 mlflow.log_metric("accuracy", accuracy, step=epoch)
                 mlflow.log_metric("test_accuracy", test_accuracy, step=epoch)
 
-        plot_training_metrics(history)
+
+        # Save training plot
+        save_training_plot(history, path="artifacts/training_plot.png")
 
         logger.info("Training completed successfully.")
 

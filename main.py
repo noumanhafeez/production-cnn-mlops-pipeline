@@ -1,16 +1,19 @@
-# This is a sample Python script.
-
-# Press ⌃F5 to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
+from pipelines.training_pipeline import run_pipeline
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press F9 to toggle the breakpoint.
+if __name__ == "__main__":
+    """
+    Main script to execute the CNN training pipeline.
 
+    This script serves as the entry point for running the full training workflow:
+    - Loads data
+    - Prepares DataLoaders
+    - Initializes the model
+    - Trains the model with logging and MLflow tracking
+    - Saves the trained model
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+    Usage:
+        python main.py
+    """
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    run_pipeline()

@@ -1,7 +1,7 @@
 import yaml
 import pandas as pd
 import torch
-
+import os
 from src.model import CNNModel
 from src.train import train_model
 from utils.model_save import save_model
@@ -55,9 +55,13 @@ def run_pipeline():
             test_loader,
             config
         )
+        logger.info("Model trained successfully.")
+        logger.info("Model saved successfully.")
 
-        save_model(model, config["artifacts"]["model_path"])
-        logger.info(f"Model saved at {config['artifacts']['model_path']}")
+        # Save model
+        model_path = config["artifacts"]["model_path"]
+        os.makedirs(os.path.dirname(model_path), exist_ok=True)
+        save_model(model, model_path)
 
         logger.info("Pipeline completed successfully.")
 
