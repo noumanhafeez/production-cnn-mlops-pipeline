@@ -1,8 +1,3 @@
-"""
-CNN Data Pipeline Module
-Handles dataset creation and batched DataLoader setup for MNIST-like 28x28 image classification.
-"""
-
 import torch
 from torch.utils.data import Dataset, DataLoader
 from utils.logger import get_logger
