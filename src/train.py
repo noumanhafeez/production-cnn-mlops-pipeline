@@ -2,11 +2,13 @@ import torch
 from torch import nn, optim
 import mlflow
 from utils.logger import get_logger
+from evaluate import evaluate_model
+from visualize import plot_training_metrics
 
 logger = get_logger("training", "logs/training.log")
 
 
-def train_model(model, train_loader, config):
+def train_model(model, train_loader, test_loader, config):
     """
     Train the CNN model with MLflow tracking, logging, and accuracy.
 
@@ -38,6 +40,8 @@ def train_model(model, train_loader, config):
             logger.info("MLflow run started.")
             mlflow.log_params(config["training"])
 
+            history = {"loss": [], "accuracy": [], "test_accuracy": []}
+
             for epoch in range(config["training"]["epochs"]):
                 total_loss = 0.0
                 correct = 0
@@ -64,6 +68,14 @@ def train_model(model, train_loader, config):
                 avg_loss = total_loss / len(train_loader)
                 accuracy = correct / total
 
+                # Append to history
+                history["train_loss"].append(avg_loss)
+                history["train_accuracy"].append(accuracy)
+
+                # Evaluate on test data
+                test_accuracy = evaluate_model(model, test_loader)
+                history["test_accuracy"].append(test_accuracy)
+
                 logger.info(
                     f"Epoch {epoch+1} completed | Loss: {avg_loss:.4f} | Accuracy: {accuracy:.4f}"
                 )
@@ -71,6 +83,9 @@ def train_model(model, train_loader, config):
                 # Log to MLflow
                 mlflow.log_metric("loss", avg_loss, step=epoch)
                 mlflow.log_metric("accuracy", accuracy, step=epoch)
+                mlflow.log_metric("test_accuracy", test_accuracy, step=epoch)
+
+        plot_training_metrics(history)
 
         logger.info("Training completed successfully.")
 
