@@ -1,0 +1,17 @@
+training:
+  epochs: 10
+  batch_size: 32
+  learning_rate: 0.001
+
+model:
+  input_channels: 1
+  num_classes: 10
+
+data:
+  path: data/fashion_mnist.csv
+
+artifacts:
+  model_path: artifacts/model.pth
+
+mlflow:
+  experiment_name: cnn_experiment
