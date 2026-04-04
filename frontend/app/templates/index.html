@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fashion Classifier</title>
+    <style>
+        /* Background */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #667eea, #764ba2);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        /* Container */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            color: #333;
+            padding: 40px;
+            border-radius: 20px;
+            width: 350px;
+            text-align: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .container:hover {
+            transform: scale(1.03);
+        }
+
+        h1 {
+            margin-bottom: 25px;
+            font-size: 24px;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background: #5a67d8;
+            transform: scale(1.05);
+        }
+
+        /* Prediction result */
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+            font-weight: bold;
+            min-height: 24px;
+            transition: all 0.3s ease;
+        }
+
+        /* Preview image */
+        #preview img {
+            margin-top: 15px;
+            max-width: 200px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+        }
+
+        #preview img:hover {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>👕 Fashion MNIST Classifier</h1>
+
+    <form id="upload-form">
+        <input type="file" id="file-input" required />
+        <br/>
+        <button type="submit">Predict</button>
+    </form>
+
+    <div id="preview"></div>
+    <div class="result" id="result"></div>
+</div>
+
+<script>
+    const form = document.getElementById("upload-form");
+    const resultDiv = document.getElementById("result");
+    const previewDiv = document.getElementById("preview");
+
+    form.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const fileInput = document.getElementById("file-input");
+        const file = fileInput.files[0];
+        if (!file) return;
+
+        // Show preview
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            previewDiv.innerHTML = `<img src="${e.target.result}" />`;
+        }
+        reader.readAsDataURL(file);
+
+        const formData = new FormData();
+        formData.append("file", file);
+
+        resultDiv.innerHTML = "⏳ Predicting...";
+
+        const response = await fetch("/predict", {
+            method: "POST",
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.predicted_class) {
+            resultDiv.innerHTML = "✅ Prediction: " + data.predicted_class;
+        } else {
+            resultDiv.innerHTML = "❌ Error: " + data.error;
+        }
+    });
+</script>
+
+</body>
+</html>
