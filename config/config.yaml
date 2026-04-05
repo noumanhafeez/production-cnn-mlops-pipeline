@@ -8,7 +8,7 @@ model:
   num_classes: 10
 
 data:
-  path: data/fashion_mnist.csv
+  path: data/fashion-mnist_train.csv
 
 artifacts:
   model_path: artifacts/model.pth
