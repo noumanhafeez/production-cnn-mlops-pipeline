@@ -20,7 +20,7 @@ jobs:
 
       - name: Download dataset
         run: |
-          python scr/download_data.py
+          python src/download_data.py
 
       - name: Run training
         run: |
