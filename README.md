@@ -1,27 +1,27 @@
-# 🚀 Production CNN MLOps Pipeline
+# Production CNN MLOps Pipeline
 
 A production-ready end-to-end Machine Learning pipeline for image classification using a Convolutional Neural Network (CNN) on the Fashion MNIST dataset. This project follows industry best practices including modular architecture, logging, experiment tracking, CI/CD, and containerization.
 
 ---
 
-## 📌 Project Overview
+## Project Overview
 
 This repository implements a complete ML lifecycle:
 
-* 📥 Data ingestion from KaggleHub
-* 🔀 Data preprocessing and splitting
-* 🧠 CNN model training with PyTorch
-* 📊 Evaluation on test data
-* 📈 Experiment tracking using MLflow
-* 📦 Model saving and artifact management
-* 🔮 Prediction pipeline for inference
-* 🌐 FastAPI-based serving
-* 🐳 Dockerized deployment
-* 🔄 CI pipeline with GitHub Actions
+*  Data ingestion from KaggleHub
+*  Data preprocessing and splitting
+*  CNN model training with PyTorch
+*  Evaluation on test data
+*  Experiment tracking using MLflow
+*  Model saving and artifact management
+*  Prediction pipeline for inference
+*  FastAPI-based serving
+*  Dockerized deployment
+*  CI pipeline with GitHub Actions
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 production-cnn-mlops-pipeline/
@@ -44,12 +44,12 @@ production-cnn-mlops-pipeline/
 
 ---
 
-## 🎬 Demo
+##  Demo
 
 ![Demo GIF](data/cnn.gif)  
 
 
-## ⚙️ Installation
+## Installation
 
 ### 1. Clone Repository
 
@@ -74,7 +74,7 @@ pip install -r requirements.txt
 
 ---
 
-## 📥 Download Dataset
+## Download Dataset
 
 ```bash
 python -m src.download_data
@@ -82,7 +82,7 @@ python -m src.download_data
 
 ---
 
-## 🧠 Train Model
+## Train Model
 
 ```bash
 python main.py
@@ -96,7 +96,7 @@ Outputs:
 
 ---
 
-## 📊 Experiment Tracking (MLflow)
+## Experiment Tracking (MLflow)
 
 ```bash
 mlflow ui
@@ -110,7 +110,7 @@ http://127.0.0.1:5000
 
 ---
 
-## 🔮 Prediction
+## Prediction
 
 Example usage:
 
@@ -123,7 +123,7 @@ print(result)
 
 ---
 
-## 🌐 Run API (FastAPI)
+## Run API (FastAPI)
 
 ```bash
 uvicorn frontend.app.main:app --reload
@@ -137,7 +137,7 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## 🐳 Docker Usage
+## Docker Usage
 
 ### Build Image
 
@@ -153,7 +153,7 @@ docker run -p 8000:8000 cnn-mlops
 
 ---
 
-## 🔄 CI Pipeline
+## CI Pipeline
 
 GitHub Actions automatically:
 
@@ -169,7 +169,7 @@ File:
 
 ---
 
-## 📌 Features
+## Features
 
 * Modular pipeline architecture
 * Config-driven training
@@ -181,7 +181,7 @@ File:
 
 ---
 
-## 🚀 Future Improvements
+## Future Improvements
 
 * Add unit and integration tests
 * Implement model versioning
@@ -192,12 +192,12 @@ File:
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Nouman Hafeez**
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
